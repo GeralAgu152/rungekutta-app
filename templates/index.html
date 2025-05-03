@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Runge-Kutta 4</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Método de Runge-Kutta de orden 4</h1>
+        <form method="post" action="/">
+            <label>Valor inicial y0: <input type="number" step="any" name="y0" required></label><br>
+            <label>Tiempo inicial t0: <input type="number" step="any" name="t0" required></label><br>
+            <label>Tiempo final tf: <input type="number" step="any" name="tf" required></label><br>
+            <label>Tamaño del paso h: <input type="number" step="any" name="h" required></label><br>
+            <button type="submit">Calcular</button>
+        </form>
+
+        {% if t %}
+        <h2>Resultados:</h2>
+        <ul>
+            {% for ti, yi in zip(t, y) %}
+                <li>t = {{ "%.2f"|format(ti) }}, y = {{ "%.6f"|format(yi) }}</li>
+            {% endfor %}
+        </ul>
+        <img src="data:image/png;base64,{{ img_data }}" alt="Gráfica">
+        <form method="post" action="/download">
+            <input type="hidden" name="y0" value="{{ request.form.y0 }}">
+            <input type="hidden" name="t0" value="{{ request.form.t0 }}">
+            <input type="hidden" name="tf" value="{{ request.form.tf }}">
+            <input type="hidden" name="h" value="{{ request.form.h }}">
+            <button type="submit">Descargar PDF</button>
+        </form>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -33,6 +33,11 @@ def index():
         t0 = float(request.form['t0'])
         tf = float(request.form['tf'])
         h = float(request.form['h'])
+
+        if h <= 0 or tf <= t0:
+            error_message = "Error: 'h' debe ser mayor que 0 y 'tf' debe ser mayor que 't0'."
+            return render_template("index.html", error=error_message, t=[], y=[], img_data="")
+
         t, y = runge_kutta4(f, y0, t0, tf, h)
 
         # Gráfica

@@ -52,7 +52,8 @@ def index():
         img_data = base64.b64encode(img.read()).decode()
         plt.close()
 
-    return render_template("index.html", t=t, y=y, img_data=img_data)
+    return render_template("index.html", t=t, y=y, img_data=img_data, zip=zip)
+
 
 @app.route('/download', methods=['POST'])
 def download():
